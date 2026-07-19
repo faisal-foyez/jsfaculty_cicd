@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <section id="center">
-        <div style={{fontSize:'50px', fontWeight:700, color:'red'}}>
+        <div style={{fontSize:'50px', fontWeight:700, color:'yellow'}}>
           JS Faculty
         </div>
       </section>
