@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,5 +19,14 @@ jobs:
       - run: tar -czf dist.tar.gz appspec.yml scripts/ dist/
       - uses: actions/upload-artifact@v4
         with: 
-          name: dist
-          path: ./dist.tar.gz
+          name: deployment-bundle
+          path: dist.tar.gz
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/download-artifact@v4
+        with:
+          name: deployment-bundle
+          path: .
+      - run: ls -la
