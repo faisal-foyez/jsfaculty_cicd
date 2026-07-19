@@ -18,5 +18,5 @@ jobs:
       - run: tar -czf dist.tar.gz appspec.yml scripts/ dist/
       - uses: actions/upload-artifact@v4
         with: 
-          name: dist.tar.gz
-          path: .
+          name: dist
+          path: ./dist.tar.gz
