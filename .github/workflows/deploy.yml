@@ -52,7 +52,7 @@ jobs:
 
             console.log(JSON.stringify(payload, null, 2));
             
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37
         with: 
           aws-region: us-west-2
           role-to-assume: arn:aws:iam::488923400120:role/jsfaculty-new-test
