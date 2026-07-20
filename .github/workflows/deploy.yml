@@ -40,9 +40,20 @@ jobs:
           echo "event=${{ github.event_name }}"
           echo "actor=${{ github.actor }}"
 
-      - name: Dump OIDC claims
-        uses: github/actions-oidc-debugger@v1
-      
+      - name: Show OIDC token claims
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const core = require('@actions/core');
+
+            const token = await core.getIDToken('sts.amazonaws.com');
+
+            const payload = JSON.parse(
+              Buffer.from(token.split('.')[1], 'base64url').toString()
+            );
+
+            console.log(JSON.stringify(payload, null, 2));
+            
       - uses: aws-actions/configure-aws-credentials@v4
         with: 
           aws-region: us-west-2
