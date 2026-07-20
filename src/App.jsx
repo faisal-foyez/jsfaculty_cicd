@@ -11,7 +11,7 @@ function App() {
     <>
       <section id="center">
         <div style={{fontSize:'50px', fontWeight:700, color:'green'}}>
-          JS Faculty
+          JS Faculty (Deep Dive)
         </div>
       </section>
     </>
