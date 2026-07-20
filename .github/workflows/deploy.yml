@@ -54,7 +54,7 @@ jobs:
             
       - uses: aws-actions/configure-aws-credentials@v4
         with: 
-          aws-region: us-west-2
+          aws-region: ap-southeast-1
           role-to-assume: arn:aws:iam::488923400120:role/jsfaculty-new-test
       - run: aws s3 cp dist.tar.gz s3://jsfaculty.cicd.test.bucket/production/dist.tar.gz
       - run: |
