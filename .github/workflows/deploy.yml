@@ -40,6 +40,10 @@ jobs:
           echo "ref_name=${{ github.ref_name }}"
           echo "event=${{ github.event_name }}"
           echo "actor=${{ github.actor }}"
+
+      - name: Dump OIDC claims
+        uses: github/actions-oidc-debugger@v1
+      
       - uses: aws-actions/configure-aws-credentials@v4
         with: 
           aws-region: us-west-2
