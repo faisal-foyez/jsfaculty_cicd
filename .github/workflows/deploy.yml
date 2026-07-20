@@ -22,7 +22,6 @@ jobs:
           path: dist.tar.gz
 
   deploy:
-    environment: production
     permissions: 
       id-token: write
       contents: read
