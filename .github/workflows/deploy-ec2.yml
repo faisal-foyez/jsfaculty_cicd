@@ -51,8 +51,7 @@ jobs:
 
       - name: Upload bundle to S3
         run: |
-          aws s3 cp application.tar.gz \
-            s3://${{ inputs.s3-bucket }}/releases/${{ github.sha }}.tar.gz
+          aws s3 cp application.tar.gz s3://${{ inputs.s3-bucket }}/releases/${{ github.sha }}.tar.gz
 
       - name: Trigger CodeDeploy deployment
         run: |
