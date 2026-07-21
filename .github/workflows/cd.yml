@@ -29,4 +29,5 @@ jobs:
       s3-bucket: jsfaculty.cicd.test.bucket
       aws-region: ap-southeast-1
 
-    secrets: inherit
+    secrets:
+      aws-role-arn: ${{secrets.aws-role-arn}}
