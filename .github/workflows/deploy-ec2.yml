@@ -42,7 +42,7 @@ jobs:
       - uses: ./.github/actions/download-artifact
         with:
           name: application
-          path: application.tar.gz
+          path: .
 
       - uses: ./.github/actions/aws-login
         with:
