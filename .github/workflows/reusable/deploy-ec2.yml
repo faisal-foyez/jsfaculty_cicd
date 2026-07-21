@@ -1,0 +1,58 @@
+name: Deploy to EC2
+
+on:
+  workflow_call:
+    inputs:
+      application-name:
+        description: CodeDeploy application name
+        required: true
+        type: string
+
+      deployment-group:
+        description: CodeDeploy deployment group
+        required: true
+        type: string
+
+      s3-bucket:
+        description: S3 bucket for deployment bundles
+        required: true
+        type: string
+
+      aws-region:
+        description: AWS region
+        required: true
+        type: string
+
+    secrets:
+      aws-role-arn:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: ./.github/actions/download-artifact
+        with:
+          name: application
+
+      - uses: ./.github/actions/aws-login
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ inputs.aws-region }}
+
+      - name: Upload bundle to S3
+        run: |
+          aws s3 cp application.tar.gz \
+            s3://${{ inputs.s3-bucket }}/releases/${{ github.sha }}.tar.gz
+
+      - name: Trigger CodeDeploy deployment
+        run: |
+            aws deploy create-deployment \
+              --application-name "${{ inputs.application-name }}" \
+              --deployment-group-name "${{ inputs.deployment-group }}" \
+              --s3-location bucket=${{ inputs.s3-bucket }},key=releases/${{ github.sha }}.tar.gz,bundleType=tgz

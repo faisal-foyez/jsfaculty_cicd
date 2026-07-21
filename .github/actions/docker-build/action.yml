@@ -1,0 +1,46 @@
+name: Docker Build
+
+description: Build and optionally push a Docker image
+
+inputs:
+  image:
+    description: Docker image name
+    required: true
+
+  tag:
+    description: Docker image tag
+    required: false
+    default: latest
+
+  context:
+    description: Build context
+    required: false
+    default: .
+
+  dockerfile:
+    description: Path to Dockerfile
+    required: false
+    default: Dockerfile
+
+  push:
+    description: Push the image after building
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+
+  steps:
+    - name: Build Docker image
+      shell: bash
+      run: |
+        docker build \
+          -f "${{ inputs.dockerfile }}" \
+          -t "${{ inputs.image }}:${{ inputs.tag }}" \
+          "${{ inputs.context }}"
+
+    - name: Push Docker image
+      if: inputs.push == 'true'
+      shell: bash
+      run: |
+        docker push "${{ inputs.image }}:${{ inputs.tag }}"

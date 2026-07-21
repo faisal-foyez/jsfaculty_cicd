@@ -1,0 +1,33 @@
+name: Setup Node
+description: Sets up Node.js, restores npm cache, and installs dependencies
+
+inputs:
+  node-version:
+    description: Node.js version
+    required: false
+    default: "22"
+
+  cache:
+    description: Package manager cache
+    required: false
+    default: "npm"
+
+  install:
+    description: Install dependencies
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.cache }}
+
+    - name: Install dependencies
+      if: inputs.install == 'true'
+      shell: bash
+      run: npm ci

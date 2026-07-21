@@ -1,0 +1,23 @@
+name: Download Artifact
+
+description: Download a workflow artifact
+
+inputs:
+  name:
+    description: Artifact name
+    required: true
+
+  path:
+    description: Directory to download the artifact into
+    required: false
+    default: "."
+
+runs:
+  using: composite
+
+  steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
