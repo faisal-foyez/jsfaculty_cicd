@@ -11,12 +11,12 @@ permissions:
 
 jobs:
   lint:
-    uses: ./.github/workflows/reusable/lint.yml
+    uses: ./.github/workflows/lint.yml
 
   build:
     needs: lint
-    uses: ./.github/workflows/reusable/build.yml
+    uses: ./.github/workflows/build.yml
 
   package:
     needs: build
-    uses: ./.github/workflows/reusable/package.yml
+    uses: ./.github/workflows/package.yml
