@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/actions/download-artifact
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
